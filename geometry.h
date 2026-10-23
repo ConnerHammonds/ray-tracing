@@ -4,42 +4,26 @@
 
 class Vec3f {
   public:
-    float r; 
-    float g;
-    float b;
+    float x; 
+    float y;
+    float z;
 
-  Vec3f add(Vec3f vec1, Vec3f vec2) {
-    Vec3f sum;
-    sum.r = vec1.r + vec2.r;
-    sum.g = vec1.g + vec2.g;
-    sum.b = vec1.b + vec2.b;
-    return sum;
+  Vec3f operator+(const Vec3f& v) const {
+    return {x + v.x, y + v.y, z + v.z};
+  }
+  Vec3f operator-(const Vec3f& v) const {
+    return {x - v.x, y - v.y, z - v.z};
+  }
+  //scalar multiplication
+  Vec3f operator*(const float f) const {
+    return {x*f, y*f, z*f};
+  }
+  //dot product
+  float operator*(const Vec3f& v) const {
+    return x*v.x + y*v.y + z*v.z;
   }
 
-  Vec3f subtract(Vec3f vec1, Vec3f vec2) {
-    Vec3f diff;
-    diff.r = vec1.r - vec2.r;
-    diff.g = vec1.g - vec2.g;
-    diff.b = vec1.b - vec2.b;
-    return diff;
-  }
 
-  Vec3f scalarMultiplication(Vec3f vec, int scalar) {
-    Vec3f product;
-    product.r = vec.r * scalar;
-    product.g = vec.g * scalar;
-    product.b = vec.b * scalar;
-    return product;
-  }
-
-  float scalarProduct(Vec3f vec1, Vec3f vec2) {
-    float product;
-    product = (vec1.r*vec2.r) + (vec1.g*vec2.g) + (vec1.b*vec2.b);
-    return product;
-  }
-
-  // have to pass vec2 by reference so that the original vector is modified
-  // rather than a copy
   Vec3f assignment(Vec3f vec1, Vec3f &vec2) {
     vec2.r = vec1.r;
     vec2.g = vec1.g;
