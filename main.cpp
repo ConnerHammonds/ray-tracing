@@ -66,7 +66,12 @@ Vec3f cast_ray(const Vec3f &orig, const Vec3f &dir, const std::vector<Sphere> &s
   if (!scene_intersect(orig, dir, spheres, point, N, material)) {
     return Vec3f(0.2, 0.7, 0.8); // background rgb color
   }
-  return material.diffuse_color;
+
+  for (size_t i = 0; i < lights.size(); i++) {
+    Vec3f light_dir = (lights[i].position - point).normalize();
+    diffuse_light_intensity += lights[i].intensity * std::max(0.f, light_dir*N);
+  }
+  return material.diffuse_color * diffuse_light_intensity;
 }
 
 
